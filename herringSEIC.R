@@ -1,19 +1,19 @@
 rm(list=ls(all=TRUE)) #clears workspace
 
-## Install these packages if you haven't already
+# Install these packages if you haven't already
 # install.packages("Rtools")
 # install.packages("deSolve")
 
-## Load deSolve package
+# Load deSolve package
 library(deSolve)
 
-## Create an SEIC function
+# Create an SEIC function
 seic <- function(time, state, parameters) {
   
   with(as.list(c(state, parameters)), {
   
-    dS <- b*(S+E+C)*(1-(S+E+I+C)/K) - (mu+f)*S - betaI*S*I - betaC*S*C
-    dE <- betaI*S*I - betaC*S*C - (mu+f)*E - lambda*E
+    dS <- b*(S+E+I+C)*(1-(S+E+I+C)/K) - (mu+f)*S - betaI*S*I - betaC*S*C
+    dE <- betaI*S*I + betaC*S*C - (mu+f)*E - lambda*E
     dI <- lambda*E - (mu+alpha+f)*I - rho*I
     dC <- rho*I - (mu+f)*C
     
@@ -28,7 +28,7 @@ parameters <- c(betaI = 0.0008, betaC = 0.0004, b = 0.1, mu = 0.001, f = 0.1, la
 times      <- seq(0, 1000, by = 0.5)
 
 ## Solve using ode (General Solver for Ordinary Differential Equations)
-out <- ode(y = init, times = times, func = eic, parms = parameters)
+out <- ode(y = init, times = times, func = seic, parms = parameters)
 ## change to data frame
 out <- as.data.frame(out)
 
