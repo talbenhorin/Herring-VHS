@@ -7,7 +7,7 @@ rm(list=ls(all=TRUE)) #clears workspace
 ## Load deSolve package
 library(deSolve)
 
-## Create a EIC function
+## Create an SEIC function
 seic <- function(time, state, parameters) {
   
   with(as.list(c(state, parameters)), {
@@ -37,4 +37,7 @@ out <- as.data.frame(out)
 head(out, 10)
 
 ## Plot
-plot(times,(out$E+out$I)/(out$S+out$E+out$I+out$C))
+plot(times,out$S)
+plot(times,out$E)
+plot(times,out$I)
+plot(times,out$C)
