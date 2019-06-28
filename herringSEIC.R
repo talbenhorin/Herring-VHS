@@ -12,7 +12,7 @@ seic <- function(time, state, parameters) {
   
   with(as.list(c(state, parameters)), {
   
-    dS <- b*(S+E+C) - (mu+f)*S - betaI*S*I - betaC*S*C
+    dS <- b*(S+E+C)*(1-(S+E+I+C)/K) - (mu+f)*S - betaI*S*I - betaC*S*C
     dE <- betaI*S*I - betaC*S*C - (mu+f)*E - lambda*E
     dI <- lambda*E - (mu+alpha+f)*I - rho*I
     dC <- rho*I - (mu+alpha+f)*C
@@ -24,7 +24,7 @@ seic <- function(time, state, parameters) {
 ### Set parameters
 init       <- c(S= 100, E = 10, I = 10, C = 0)
 ## b: reproduction; beta: transmission; mu: natural mortality; r: WS mortality; c: parasite shedding; gamma: parasite loss
-parameters <- c(betaI = 0.0008, betaC = 0.0004, b = 0.1, mu = 0.001, f = 0, lambda = 0.15, alpha = 0.025, rho = 0.167)
+parameters <- c(betaI = 0.0008, betaC = 0.0004, b = 0.1, mu = 0.001, f = 0.1, lambda = 0.15, alpha = 0.025, rho = 0.167, K = 200)
 ## Time frame
 times      <- seq(0, 1000, by = 0.5)
 
@@ -32,8 +32,7 @@ times      <- seq(0, 1000, by = 0.5)
 out <- ode(y = init, times = times, func = eic, parms = parameters)
 ## change to data frame
 out <- as.data.frame(out)
-## Delete time variable
-out$time <- NULL
+
 ## Show data
 head(out, 10)
 
