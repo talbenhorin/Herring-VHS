@@ -8,7 +8,7 @@ rm(list=ls(all=TRUE)) #clears workspace
 library(deSolve)
 
 ## Create a EIC function
-eic <- function(time, state, parameters) {
+seic <- function(time, state, parameters) {
   
   with(as.list(c(state, parameters)), {
   
