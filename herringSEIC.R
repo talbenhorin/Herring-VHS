@@ -15,7 +15,7 @@ seic <- function(time, state, parameters) {
     dS <- b*(S+E+C)*(1-(S+E+I+C)/K) - (mu+f)*S - betaI*S*I - betaC*S*C
     dE <- betaI*S*I - betaC*S*C - (mu+f)*E - lambda*E
     dI <- lambda*E - (mu+alpha+f)*I - rho*I
-    dC <- rho*I - (mu+alpha+f)*C
+    dC <- rho*I - (mu+f)*C
     
     return(list(c(dS, dE, dI, dC)))
   })
