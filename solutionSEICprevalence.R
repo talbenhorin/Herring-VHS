@@ -9,4 +9,12 @@ mu = 0.15;#natural mortality
 c <- (b - mu)/K;#strength of density dependence
 alpha = 1;#disease mortality
 
-seq(0,0.15,length=50)
+f <- seq(0,0.15,length=50)
+
+Nstar <- K - f/c
+Istar_n <- (gamma*lambda)*(b*K + 2*f*K - (b*f)/c - (f^2)/c - c*K^2) 
+Istar_d <- ((mu+f+alpha+rho)*(mu+f+gamma)*(mu+f+lambda))
+Istar <- Istar_n/Istar_d
+prev <- Istar/Nstar
+
+plot(f,prev)
