@@ -17,4 +17,4 @@ Istar_d <- ((mu+f+alpha+rho)*(mu+f+gamma)*(mu+f+lambda))
 Istar <- Istar_n/Istar_d
 prev <- Istar/Nstar
 
-plot(f,prev)
+plot(f,prev,type="l")
