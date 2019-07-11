@@ -21,12 +21,27 @@ seic <- function(time, state, parameters) {
   })
 }
 
-### Set parameters
+## Set parameters and time frame
 init       <- c(S= 1000000, E = 100, I = 0, C = 0)
-parameters <- c(gamma = 91.25, rho = 30, beta = 45, b = 0.6, mu = 0.15, c = 1.05e-06,alpha = 2,f = 0.01)
-
-## Time frame
+fishing <- seq(0,0.25,length=10)
 times      <- seq(0, 50, by = 0.5)
+
+finalsize <- numeric(length(fishing)) # a vector to hold the solutions
+
+for(i in seq_along(fishing)){
+  parameters <- c(gamma = 91.25, rho = 30, beta = 45, b = 0.6, mu = 0.15, c = 1.05e-06,alpha = 2,f = fishing[i])
+  out <- as.data.frame(
+    out <- ode(
+      y = init, 
+      times = times, 
+      func = seic, 
+      parms = parameters
+      )
+    )
+  finalsize[i] <- tail(out$S+out$E+out$I+out$C,1)
+}
+
+plot(fishing,finalsize)
 
 ## Solve using ode (General Solver for Ordinary Differential Equations)
 out <- ode(y = init, times = times, func = seic, parms = parameters)
