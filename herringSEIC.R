@@ -12,9 +12,9 @@ seic <- function(time, state, parameters) {
   
   with(as.list(c(state, parameters)), {
   
-    dS <- b*(S+E+I+C)*(1-(S+E+I+C)/K) - (mu+f)*S - betaI*S*I - betaC*S*C
-    dE <- betaI*S*I + betaC*S*C - (mu+f)*E - lambda*E
-    dI <- lambda*E - (mu+alpha+f)*I - rho*I
+    dS <- (b-c*(S+E+I+C))*(S+E+I+C) - (mu+f+lambda)*S 
+    dE <- lambda*S - (mu+f+gamma)*E
+    dI <- gamma*E - (mu+f+alpha+rho)*I
     dC <- rho*I - (mu+f)*C
     
     return(list(c(dS, dE, dI, dC)))
@@ -22,10 +22,11 @@ seic <- function(time, state, parameters) {
 }
 
 ### Set parameters
-init       <- c(S= 100, E = 10, I = 10, C = 0)
-parameters <- c(betaI = 0.0008, betaC = 0.0004, b = 0.1, mu = 0.001, f = 0.1, lambda = 0.15, alpha = 0.025, rho = 0.167, K = 200)
+init       <- c(S= 1000000, E = 100, I = 0, C = 0)
+parameters <- c(gamma = 91.25, rho = 30, lambda = 0.5, b = 0.6, mu = 0.15, c = 1.05e-06,alpha = 2,f = 0.15)
+
 ## Time frame
-times      <- seq(0, 1000, by = 0.5)
+times      <- seq(0, 50, by = 0.5)
 
 ## Solve using ode (General Solver for Ordinary Differential Equations)
 out <- ode(y = init, times = times, func = seic, parms = parameters)
@@ -36,7 +37,5 @@ out <- as.data.frame(out)
 head(out, 10)
 
 ## Plot
-plot(times,out$S)
-plot(times,out$E)
-plot(times,out$I)
-plot(times,out$C)
+plot(times,out$S+out$E+out$I+out$C)
+
