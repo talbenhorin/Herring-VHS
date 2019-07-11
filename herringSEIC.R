@@ -41,13 +41,5 @@ for(i in seq_along(fishing)){
   finalsize[i] <- tail(out$S+out$E+out$I+out$C,1)
 }
 
-plot(fishing,finalsize)
-
-## Solve using ode (General Solver for Ordinary Differential Equations)
-out <- ode(y = init, times = times, func = seic, parms = parameters)
-## change to data frame
-out <- as.data.frame(out)
-
-## Plot
-plot(times,out$S+out$E+out$I+out$C)
+plot(fishing,finalsize,type='o')
 
