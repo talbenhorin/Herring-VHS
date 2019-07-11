@@ -29,7 +29,7 @@ times      <- seq(0, 50, by = 0.5)
 eqsize <- numeric(length(fishing)) # a vector to hold the solutions
 
 for(i in seq_along(fishing)){
-  parameters <- c(qS = 0.5,qC = 1,gamma = 91.25, rho = 30, beta = 45, b = 0.6, mu = 0.15, c = 1.05e-06,alpha = 2,f = fishing[i])
+  parameters <- c(qS = 0.5,qC = 1,gamma = 30, rho = 91.25, beta = 45, b = 0.6, mu = 0.15, c = 1.05e-06,alpha = 2,f = fishing[i])
   out <- as.data.frame(
     out <- ode(
       y = init, 
