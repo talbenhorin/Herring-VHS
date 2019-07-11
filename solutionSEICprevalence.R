@@ -4,7 +4,7 @@ K = 1000000
 gamma = 91.25#E -> I
 rho = 30#I -> C
 lambda = 0.5#force of infection
-b = 1.2#births
+b = 0.5#births
 mu = 0.15#natural mortality
 c <- (b - mu)/K#strength of density dependence
 alpha = 2#disease mortality
