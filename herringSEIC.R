@@ -12,10 +12,10 @@ seic <- function(time, state, parameters) {
   
   with(as.list(c(state, parameters)), {
   
-    dS <- (b-c*(S+E+I+C))*(S+E+I+C) - (mu+f)*S - beta*S*(I/(S+E+I+C)) 
-    dE <- beta*S*(I/(S+E+I+C)) - (mu+f+gamma)*E
-    dI <- gamma*E - (mu+f+alpha+rho)*I
-    dC <- rho*I - (mu+f)*C
+    dS <- (b-c*(S+E+I+C))*(S+E+I+C) - (mu+qS*f)*S - beta*S*(I/(S+E+I+C)) 
+    dE <- beta*S*(I/(S+E+I+C)) - (mu+qS*f+gamma)*E
+    dI <- gamma*E - (mu+qS*f+alpha+rho)*I
+    dC <- rho*I - (mu+qC*f)*C
     
     return(list(c(dS, dE, dI, dC)))
   })
@@ -23,13 +23,13 @@ seic <- function(time, state, parameters) {
 
 ## Set parameters and time frame
 init       <- c(S= 1000000, E = 100, I = 0, C = 0)
-fishing <- seq(0,0.25,length=10)
+fishing <- seq(0,1,length=10)
 times      <- seq(0, 50, by = 0.5)
 
-finalsize <- numeric(length(fishing)) # a vector to hold the solutions
+eqsize <- numeric(length(fishing)) # a vector to hold the solutions
 
 for(i in seq_along(fishing)){
-  parameters <- c(gamma = 91.25, rho = 30, beta = 45, b = 0.6, mu = 0.15, c = 1.05e-06,alpha = 2,f = fishing[i])
+  parameters <- c(qS = 0.5,qC = 1,gamma = 91.25, rho = 30, beta = 45, b = 0.6, mu = 0.15, c = 1.05e-06,alpha = 2,f = fishing[i])
   out <- as.data.frame(
     out <- ode(
       y = init, 
@@ -38,8 +38,8 @@ for(i in seq_along(fishing)){
       parms = parameters
       )
     )
-  finalsize[i] <- tail(out$S+out$E+out$I+out$C,1)
+  eqsize[i] <- tail(out$S+out$E+out$I+out$C,1)
 }
 
-plot(fishing,finalsize,type='o')
+plot(fishing,eqsize,type='l')
 
