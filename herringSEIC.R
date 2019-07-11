@@ -23,7 +23,7 @@ seic <- function(time, state, parameters) {
 
 ### Set parameters
 init       <- c(S= 1000000, E = 100, I = 0, C = 0)
-parameters <- c(gamma = 91.25, rho = 30, beta = 45, b = 0.6, mu = 0.15, c = 1.05e-06,alpha = 2,f = 0)
+parameters <- c(gamma = 91.25, rho = 30, beta = 45, b = 0.6, mu = 0.15, c = 1.05e-06,alpha = 2,f = 0.01)
 
 ## Time frame
 times      <- seq(0, 50, by = 0.5)
