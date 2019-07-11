@@ -1,6 +1,6 @@
 rm(list=ls(all=TRUE)) #clears workspace
 
-K = 500000
+K = 1000000
 gamma = 91.25#E -> I
 rho = 30#I -> C
 lambda = 0.5#force of infection
