@@ -6,7 +6,7 @@ rho = 30#I -> C
 lambda = 0.5#force of infection
 b = 0.5#births
 mu = 0.15#natural mortality
-c <- (b - mu)/K#strength of density dependence
+c = 1.05e-06#strength of density dependence
 alpha = 2#disease mortality
 
 f <- seq(0,1,length=50)
