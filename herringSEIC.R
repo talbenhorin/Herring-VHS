@@ -26,21 +26,31 @@ init       <- c(S= 1000000, E = 100, I = 0, C = 0)
 fishing <- seq(0,1,length=10)
 times      <- seq(0, 50, by = 0.5)
 
-eqsize <- numeric(length(fishing)) # a vector to hold the solutions
-eqprev <- numeric(length(fishing))
+eqsize.cold <- numeric(length(fishing)) # a vector to hold the solutions
+eqsize.warm <- numeric(length(fishing)) # a vector to hold the solutions
 
 for(i in seq_along(fishing)){
-  parameters <- c(qS = 0.1,qC = 1,gamma = 30, rho = 91.25, beta = 45, b = 0.6, mu = 0.15, c = 1.05e-06,alpha = 2,f = fishing[i])
-  out <- as.data.frame(
-    out <- ode(
+  p.cold <- c(qS = 0.1,qC = 1,gamma = 91.25, rho = 30, beta = 45, b = 0.6, mu = 0.15, c = 1.05e-06,alpha = 2,f = fishing[i])
+  p.warm <- c(qS = 0.1,qC = 1,gamma = 91.25, rho = 91.25, beta = 45, b = 0.6, mu = 0.15, c = 1.05e-06,alpha = 0.1,f = fishing[i])
+  out.cold <- as.data.frame(
+    out.cold <- ode(
       y = init, 
       times = times, 
       func = seic, 
-      parms = parameters
+      parms = p.cold
       )
     )
-  eqsize[i] <- tail(out$S+out$E+out$I+out$C,1)
+  out.warm <- as.data.frame(
+    out.warm <- ode(
+      y = init, 
+      times = times, 
+      func = seic, 
+      parms = p.warm
+    )
+  )
+  eqsize.warm[i] <- tail(out.warm$S+out.warm$E+out.warm$I+out.warm$C,1)
+  eqsize.cold[i] <- tail(out.cold$S+out.cold$E+out.cold$I+out.cold$C,1)
 }
 
-plot(fishing,eqsize,type='l')
-
+plot(fishing,eqsize.warm,type='l',col='red')
+points(fishing,eqsize.cold,type='l',col='blue')
