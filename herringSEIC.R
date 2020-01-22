@@ -26,9 +26,6 @@ init       <- c(S= 1000000, E = 100, I = 0, C = 0)
 fishing <- seq(0,1,length=10)
 times      <- seq(0, 50, by = 0.5)
 
-#eqsize.cold <- numeric(length(fishing)) # a vector to hold the solutions
-#eqsize.warm <- numeric(length(fishing)) # a vector to hold the solutions
-
 p <- c(qS = 0.1,qC = 1,gamma = 91.25, rho = 30, beta = 45, b = 0.6, mu = 0.15, c = 1.05e-06,alpha = 2,f = 0)#parameter string
 out <- ode(
   y = init,
