@@ -25,7 +25,7 @@ seic <- function(time, state, parameters) {
 init       <- c(S= 1000000, E = 100, I = 0, C = 0)
 times      <- seq(0, 50, by = 0.5)
 
-p <- c(qS = 0.1,qC = 1,gamma = 91.25, rho = 30, beta = 45, b = 0.6, mu = 0.15, c = 1.05e-06,alpha = 2,f = 0#parameter string
+p <- c(qS = 0.1,qC = 1,gamma = 91.25, rho = 30, beta = 45, b = 0.6, mu = 0.15, c = 1.05e-06,alpha = 2,f = 0)#parameter string
 out <- ode(
   y = init,
   times = times,
