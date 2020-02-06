@@ -28,7 +28,7 @@ seic.pulse <- function(t, x, params) {
 
 ## Set parameters, initial states, and time frame  
 params <- c(qS=0.1,qC = 1,gamma = 91.25, rho = 30, beta = 45, b = 0.6, mu = 0.15, c = 1.05e-06,alpha = 2,f = 0, s = 50, phi = -1.5708, k = 3.98)#parameter string
-xstart <- c(S= 1000000, E = 100, I = 0, C = 0)
+xstart <- c(S= 100000, E = 100, I = 0, C = 0)
 times <- seq(0, 50, by = 0.01917808)
 
 out <- as.data.frame(
