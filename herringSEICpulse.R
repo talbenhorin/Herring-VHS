@@ -23,6 +23,7 @@ seic.pulse <- function(t, x, params) {
   dE <- beta*x[1]*(x[3]/(x[1]+x[2]+x[3]+x[4])) - (mu+qS*f+gamma)*x[2]
   dI <- gamma*x[2] - (mu+qS*f+alpha+rho)*x[3]
   dC <- rho*x[3] - (mu+qC*f)*x[4]  
+  dH <- qS*f*x[1]+qS*f*x[2]+qS*f*x[3]+qC*f*x[4]
   list(c(dS,dE,dI,dC))
 }
 
